@@ -1,0 +1,20 @@
+---
+- name: "Create symlink in /usr/bin"
+  file:
+    src: /opt/nvim-linux64/bin/nvim
+    dest: /usr/bin/nvim
+    owner: root
+    group: root
+    state: link
+  become: true
+  become_method: sudo
+
+- name: "Copy config folder"
+  copy:
+    src: nvim
+    dest: /home/{{ ansible_user_id }}/.config/
+
+- name: "Install Packer"
+  shell: git clone --depth 1 https://github.com/wbthomason/packer.nvim /home/{{ ansible_user_id }}/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+  

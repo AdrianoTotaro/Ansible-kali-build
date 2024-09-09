@@ -1,0 +1,13 @@
+---
+- name: "Instal Terminator"
+  apt:
+    name: terminator
+    state: present
+  become: true
+  become_method: sudo
+
+- name: "Copying config"
+  copy:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_env.HOME }}/.config/terminator/"
+# tasks file for configure-terminator
