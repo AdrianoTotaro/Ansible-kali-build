@@ -2,4 +2,4 @@
 - name: copy config file
   copy:
     src: config.cfg
-    dst: /home/{{ ansible_user_id }}/.config/cherrytree/config.cfg
+    dest: /home/{{ ansible_user_id }}/.config/cherrytree/config.cfg
