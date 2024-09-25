@@ -1,0 +1,5 @@
+---
+- name: copy config file
+  copy:
+    - src: config.cfg
+    - dst: ~/.config/cherrytree/config.cfg
