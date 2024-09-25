@@ -2,4 +2,5 @@
 - include_tasks: "apt-stuff.yml"
 - include_tasks: "github-repos.yml"
 - include_tasks: "python-tools.yml"
+- include_tasks: "cherry_tree.yml"
 # tasks file for install-tools
