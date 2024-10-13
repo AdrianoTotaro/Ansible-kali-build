@@ -21,6 +21,7 @@
       - docker.io
       - ghidra
       - xclip
+      - gobuster
     state: latest
   become: true
   become_method: sudo
