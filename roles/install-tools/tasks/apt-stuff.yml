@@ -19,6 +19,8 @@
       - exiftool
       - npm
       - docker.io
+      - ghidra
+      - xclip
     state: latest
   become: true
   become_method: sudo
