@@ -3,3 +3,8 @@
   copy:
     src: config.cfg
     dest: /home/{{ ansible_user_id }}/.config/cherrytree/config.cfg
+
+- name: copy template file
+  copy:
+    src: template.ctb
+    dest: /home/{{ansible_user_id}}/Documents/template.ctb
