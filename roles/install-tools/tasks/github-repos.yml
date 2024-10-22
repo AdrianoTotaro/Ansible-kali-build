@@ -44,3 +44,7 @@
     path: "{{ build_dir.path }}"
     state: absent
   when: build_dir.path is defined
+
+- name: Install GEF for GDB
+  shell:
+    cmd: bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
