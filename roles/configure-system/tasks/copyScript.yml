@@ -2,4 +2,4 @@
 - name: Copy tun0 IP script in Documents Folder
   copy:
     src: showIP.sh
-    dst: /home/{{ ansible_user_id }}/Documents/
+    dest: /home/{{ ansible_user_id }}/Documents/
