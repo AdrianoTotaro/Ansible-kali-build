@@ -3,4 +3,5 @@
 - include_tasks: "github-repos.yml"
 - include_tasks: "python-tools.yml"
 - include_tasks: "cherry_tree.yml"
+- include_tasks: "custom_scripts.yml"
 # tasks file for install-tools

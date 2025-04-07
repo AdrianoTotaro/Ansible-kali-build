@@ -4,3 +4,8 @@
     dest: "/usr/share/firefox-esr/distribution/policies.json"
   become: true
   become_method: sudo
+
+- name: "Copy foxyproxy BURP patterns"
+  copy:
+    src: files/pattern.json
+    dest: /home/{{ansible_user_id}}/Documents/pattern.json

@@ -1,0 +1,58 @@
+[
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "HTB",
+      "pattern": "*://10.10.10.*/",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "HTB",
+      "pattern": "*://*10.10.11.*/",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "HTB",
+      "pattern": "*://*.htb*/",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "HTB",
+      "pattern": "*://*10.129.*/",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "specifyport",
+      "pattern": "https://\\d{2,3}.\\d{2,3}.\\d{2,3}.\\d{2,3}:\\d+/",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "localhost",
+      "pattern": "*://loaclhost:*/*",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "burp view",
+      "pattern": "http://burpsuite/*",
+      "active": true
+    },
+    {
+      "include": "include",
+      "type": "wildcard",
+      "title": "",
+      "pattern": "*://localhost/*",
+      "active": true
+    }
+]
