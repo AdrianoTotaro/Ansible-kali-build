@@ -33,7 +33,6 @@
     - { repo: "carlospolop/PEASS-ng",  regex: "winPEASx64.exe", location: "/opt/peas" }
     - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/" }
     - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
-    - { repo: "neovim/neovim", regex: "nvim-linux64.tar.gz", location: "/opt/"}
   async: 45
   poll: 0
   become: true

@@ -1,13 +1,25 @@
 ---
-- name: "Create symlink in /usr/bin"
+- name: Create git folder if it does not exist
   file:
-    src: /opt/nvim-linux64/bin/nvim
-    dest: /usr/bin/nvim
-    owner: root
-    group: root
-    state: link
+    path: /home/{{ ansible_user_id }}/git
+    state: directory
+
+- name: Get Neovim from Github
+  git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: /home/{{ ansible_user_id }}/git/neovim
+
+- name: Build neovim
+  make:
+    chdir: /home/{{ ansible_user_id }}/git/neovim
+    params:
+      CMAKE_BUILD_TYPE=RelWithDebInfo
+
+- name: Run make install
+  make:
+    chdir: /home/{{ ansible_user_id }}/git/neovim
+    target: install
   become: true
-  become_method: sudo
 
 - name: "Copy config folder"
   copy:
@@ -22,3 +34,4 @@
   npm:
     name: pyright
     global: true
+  become: true

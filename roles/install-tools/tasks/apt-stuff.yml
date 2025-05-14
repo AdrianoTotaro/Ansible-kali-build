@@ -22,6 +22,7 @@
       - ghidra
       - xclip
       - gobuster
+      - cmake
     state: latest
   become: true
   become_method: sudo
