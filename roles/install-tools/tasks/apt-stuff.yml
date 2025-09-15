@@ -21,6 +21,7 @@
       - ghidra
       - xclip
       - gobuster
+      - pyenv
       - cmake
     state: latest
   become: true
