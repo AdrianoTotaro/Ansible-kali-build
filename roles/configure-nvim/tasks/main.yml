@@ -26,9 +26,20 @@
     src: nvim
     dest: /home/{{ ansible_user_id }}/.config/
 
+- name: "Copy config folder ROOT"
+  copy:
+    src: nvim
+    dest: /root/.config/
+  become: true
+
 - name: "Install Packer"
   shell: git clone --depth 1 https://github.com/wbthomason/packer.nvim /home/{{ ansible_user_id }}/.local/share/nvim/site/pack/packer/start/packer.nvim
   ignore_errors: true
+
+- name: "Install Packer ROOT"
+  shell: git clone --depth 1 https://github.com/wbthomason/packer.nvim /root/.local/share/nvim/site/pack/packer/start/packer.nvim
+  ignore_errors: true
+  become: true
 
 - name: "Install pyright language-server"
   npm:
