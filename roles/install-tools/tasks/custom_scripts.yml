@@ -1,7 +1,7 @@
 ---
 - name: copy fast_scan script
   copy: 
-    src: files/fastscan.sh
+    src: fastscan.sh
     dest: /usr/bin/fastscan.sh
     owner: root
     group: root

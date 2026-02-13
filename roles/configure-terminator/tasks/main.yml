@@ -6,8 +6,14 @@
   become: true
   become_method: sudo
 
+- name: Ensure terminator config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/terminator"
+    state: directory
+    mode: '0755'
+
 - name: "Copying config"
   copy:
     src: "{{ role_path }}/files/config"
-    dest: "{{ ansible_env.HOME }}/.config/terminator/"
+    dest: "{{ ansible_env.HOME }}/.config/terminator/config"
 # tasks file for configure-terminator

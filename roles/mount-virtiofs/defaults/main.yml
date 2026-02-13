@@ -1,0 +1,13 @@
+---
+virtiofs_share_tag: "shared_folder"
+virtiofs_mount_point: "/mnt/shared_folder"
+virtiofs_mount_opts: "defaults,nofail,x-systemd.automount,x-systemd.idle-timeout=60"
+
+# If true, Ansible will attempt to mount it during the run.
+# Mount failures are treated as non-fatal so the rest of the play can continue.
+virtiofs_mount_now: true
+
+# Try to ensure the mountpoint is owned by the current user.
+virtiofs_chown: true
+virtiofs_owner: "{{ ansible_user_id }}"
+virtiofs_group: "{{ ansible_user_id }}"

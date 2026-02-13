@@ -2,12 +2,19 @@ vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
-local lspconfig = require('lspconfig')
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.pyright.setup({})
+vim.lsp.config('pyright', {
+  cmd = { 'pyright-langserver', '--stdio' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', '.git' },
+  capabilities = lsp_capabilities,
+})
+vim.lsp.enable('pyright')
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
   snippet = {

@@ -14,27 +14,13 @@ return require('packer').startup(function(use)
   }
 
   use "rebelot/kanagawa.nvim"
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v2.x',
-      requires = {
-              -- LSP Support
-              {'neovim/nvim-lspconfig'},             -- Required
-              {                                      -- Optional
-              'williamboman/mason.nvim',
-              run = function()
-                  pcall(vim.cmd, 'MasonUpdate')
-              end,
-          },
-          {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-          -- Autocompletion
-          {'hrsh7th/nvim-cmp'},     -- Required
-          {'hrsh7th/cmp-nvim-lsp'}, -- Required
-          {'L3MON4D3/LuaSnip'},     -- Required
-      }
-    }
+  -- LSP + completion (Neovim 0.11+ uses vim.lsp.config/vim.lsp.enable)
+  use { 'hrsh7th/nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp' }
+  use { 'hrsh7th/cmp-buffer' }
+  use { 'hrsh7th/cmp-path' }
+  use { 'saadparwaiz1/cmp_luasnip' }
+  use { 'L3MON4D3/LuaSnip' }
     use 'navarasu/onedark.nvim'
     use 'preservim/nerdtree'
-end)
+ end)

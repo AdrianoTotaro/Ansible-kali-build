@@ -29,6 +29,11 @@ cd ./Ansible-kali-build
 ansible-galaxy install -r requirements.yml
 ```
 
+- Install Ansible collections used by tasks
+```shell
+ansible-galaxy collection install -r collections/requirements.yml
+```
+
 - Finally, run ansible-playbook with your ansible vault
 ```shell
 # get sudo token (valid for 15mins)

@@ -3,6 +3,7 @@
   git:
     repo: "{{ item.repo }}"
     dest: "{{ item.location }}"
+    update: false
   loop:
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/SharpCollection" }
     - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
@@ -16,7 +17,7 @@
 
 - name: "Copying python script to download github releases"
   copy:
-    src: "files/githubdownload.py"
+    src: "githubdownload.py"
     dest: "{{ build_dir.path }}/githubdownload.py"
     owner: root
     group: root
@@ -27,14 +28,12 @@
 - name: "Downloading github releases"
   shell: "{{ build_dir.path }}/githubdownload.py {{ item.repo }} {{ item.regex }} {{ item.location }} {% if item.filename is defined %}{{ item.filename }}{% endif %}"
   loop:
-    - { repo: "jpillora/chisel",  regex: "_linux_amd64.gz", location: "/opt/chisel" }
-    - { repo: "jpillora/chisel",  regex: "_windows_amd64.gz", location: "/opt/chisel" }
-    - { repo: "carlospolop/PEASS-ng",  regex: "linpeas.sh", location: "/opt/peas" }
-    - { repo: "carlospolop/PEASS-ng",  regex: "winPEASx64.exe", location: "/opt/peas" }
-    - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/" }
-    - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/" }
-  async: 45
-  poll: 0
+    - { repo: "carlospolop/PEASS-ng",  regex: "linpeas.sh", location: "/opt/peas", filename: "linpeas.sh", creates: "/opt/peas/linpeas.sh" }
+    - { repo: "carlospolop/PEASS-ng",  regex: "winPEASx64.exe", location: "/opt/peas", filename: "winPEASx64.exe", creates: "/opt/peas/winPEASx64.exe" }
+    - { repo: "WithSecureLabs/chainsaw",  regex: "chainsaw_all_", location: "/opt/chainsaw", creates: "/opt/chainsaw" }
+    - { repo: "BloodHoundAD/BloodHound", regex: "BloodHound-linux-x64.zip", location: "/opt/bloodhound", creates: "/opt/bloodhound" }
+  args:
+    creates: "{{ item.creates | default(omit) }}"
   become: true
   become_method: sudo
 
@@ -47,3 +46,5 @@
 - name: Install GEF for GDB
   shell:
     cmd: bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+  args:
+    creates: "{{ ansible_env.HOME }}/.gdbinit-gef.py"

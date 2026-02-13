@@ -1,8 +1,13 @@
 ---
 - name: Reduce grub timeout
   become: true
-  shell: sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_TIMEOUT='
+    line: 'GRUB_TIMEOUT=1'
+  register: grub_timeout
 
 - name: Update-grub
   become: true
-  shell: update-grub
+  ansible.builtin.command: update-grub
+  when: grub_timeout is changed

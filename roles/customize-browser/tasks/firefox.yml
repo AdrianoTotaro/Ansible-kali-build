@@ -1,11 +1,17 @@
 - name: "Updating Firefox Policies"
   template: 
-    src: "templates/policies.json.j2"
+    src: "policies.json.j2"
     dest: "/usr/share/firefox-esr/distribution/policies.json"
   become: true
   become_method: sudo
 
+- name: Ensure Documents directory exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user_id }}/Documents"
+    state: directory
+    mode: '0755'
+
 - name: "Copy foxyproxy BURP patterns"
   copy:
-    src: files/pattern.json
-    dest: /home/{{ansible_user_id}}/Documents/pattern.json
+    src: pattern.json
+    dest: "/home/{{ ansible_user_id }}/Documents/pattern.json"

@@ -1,0 +1,63 @@
+---
+- name: Ensure virtiofs mount point exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ virtiofs_mount_point }}"
+    state: directory
+    mode: '0755'
+
+- name: Ensure virtiofs is configured in fstab
+  become: true
+  ansible.posix.mount:
+    path: "{{ virtiofs_mount_point }}"
+    src: "{{ virtiofs_share_tag }}"
+    fstype: virtiofs
+    opts: "{{ virtiofs_mount_opts }}"
+    state: present
+
+- name: Attempt to mount virtiofs share now (non-fatal)
+  become: true
+  ansible.posix.mount:
+    path: "{{ virtiofs_mount_point }}"
+    src: "{{ virtiofs_share_tag }}"
+    fstype: virtiofs
+    opts: "{{ virtiofs_mount_opts }}"
+    state: mounted
+  when: virtiofs_mount_now | bool
+  register: virtiofs_mount_attempt
+  failed_when: false
+
+- name: Warn if virtiofs mount failed
+  ansible.builtin.debug:
+    msg: "virtiofs mount did not succeed (share tag missing or virtiofs not available yet): {{ virtiofs_mount_attempt.msg | default(virtiofs_mount_attempt.stderr | default('unknown error')) }}"
+  when:
+    - virtiofs_mount_now | bool
+    - virtiofs_mount_attempt is defined
+    - virtiofs_mount_attempt.rc is defined
+    - virtiofs_mount_attempt.rc != 0
+
+- name: Check if virtiofs mountpoint is mounted
+  ansible.builtin.command: "mountpoint -q {{ virtiofs_mount_point }}"
+  register: virtiofs_is_mounted
+  changed_when: false
+  failed_when: false
+
+- name: Chown mounted virtiofs share to current user (non-fatal)
+  become: true
+  ansible.builtin.command: "chown {{ virtiofs_owner }}:{{ virtiofs_group }} {{ virtiofs_mount_point }}"
+  when:
+    - virtiofs_chown | bool
+    - virtiofs_is_mounted.rc == 0
+  register: virtiofs_chown_attempt
+  changed_when: virtiofs_chown_attempt.rc == 0
+  failed_when: false
+
+- name: Warn if chown on virtiofs share failed
+  ansible.builtin.debug:
+    msg: "chown on {{ virtiofs_mount_point }} failed (host permissions/mapping may prevent it): {{ virtiofs_chown_attempt.stderr | default('unknown error') }}"
+  when:
+    - virtiofs_chown | bool
+    - virtiofs_is_mounted.rc == 0
+    - virtiofs_chown_attempt is defined
+    - virtiofs_chown_attempt.rc is defined
+    - virtiofs_chown_attempt.rc != 0
