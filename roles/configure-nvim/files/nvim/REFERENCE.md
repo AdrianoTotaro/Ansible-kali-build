@@ -97,6 +97,7 @@ Source: `after/plugin/lsp.lua`
 | `L3MON4D3/LuaSnip` | Snippet engine |
 | `navarasu/onedark.nvim` | Colorscheme (active) |
 | `rebelot/kanagawa.nvim` | Colorscheme (installed, not active) |
+| `nvim-treesitter/nvim-treesitter` | Syntax highlighting & parsing |
 
 Source: `lua/ilprof/packer.lua`
 
@@ -133,6 +134,7 @@ Source: `lua/ilprof/set.lua`, `after/plugin/lsp.lua`
 | Feature | Detail |
 |---------|--------|
 | Colorscheme | `onedark` (`after/plugin/colors.lua`) |
+| Treesitter | Enabled for: python, lua, vim, markdown, yaml, json + auto-install (`after/plugin/treesitter.lua`) |
 | LSP (Python) | Pyright, triggered on Python filetype (`after/plugin/lsp.lua`) |
 | Snippets | LuaSnip with VS Code-style snippets (`after/plugin/lsp.lua`) |
 | netrw hide | Dotfiles hidden in netrw (`lua/ilprof/set.lua`) |

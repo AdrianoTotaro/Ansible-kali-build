@@ -1,29 +1,10 @@
 ---
-- name: Create git folder if it does not exist
-  file:
-    path: /home/{{ ansible_user_id }}/git
-    state: directory
-  tags: [nvim-build, neovim]
-
-- name: Get Neovim from Github
-  git:
-    repo: 'https://github.com/neovim/neovim.git'
-    dest: /home/{{ ansible_user_id }}/git/neovim
-  tags: [nvim-build, neovim]
-
-- name: Build neovim
-  make:
-    chdir: /home/{{ ansible_user_id }}/git/neovim
-    params:
-      CMAKE_BUILD_TYPE=RelWithDebInfo
-  tags: [nvim-build, neovim]
-
-- name: Run make install
-  make:
-    chdir: /home/{{ ansible_user_id }}/git/neovim
-    target: install
+- name: Install neovim
+  package:
+    name: neovim
+    state: present
   become: true
-  tags: [nvim-build, neovim]
+  tags: [nvim-install, neovim]
 
 - name: Copy config folder
   copy:
