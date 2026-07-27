@@ -4,12 +4,19 @@
   connection: local
   roles:
     - role: "roles/install-tools"
+      tags: [install]
     - role: "roles/configure-system"
+      tags: [system]
     - role: "roles/mount-virtiofs"
+      tags: [mount]
     - role: "roles/customize-browser"
+      tags: [browser]
     - role: "roles/configure-terminator"
+      tags: [terminator]
     - role: "roles/configure-nvim"
+      tags: [neovim, nvim]
     - role: "gantsign.visual-studio-code"
+      tags: [vscode]
       users:
       - username: "{{ ansible_user_id }}" 
         visual_studio_code_extensions:

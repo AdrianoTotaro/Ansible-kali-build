@@ -3,46 +3,55 @@
   file:
     path: /home/{{ ansible_user_id }}/git
     state: directory
+  tags: [nvim-build, neovim]
 
 - name: Get Neovim from Github
   git:
     repo: 'https://github.com/neovim/neovim.git'
     dest: /home/{{ ansible_user_id }}/git/neovim
+  tags: [nvim-build, neovim]
 
 - name: Build neovim
   make:
     chdir: /home/{{ ansible_user_id }}/git/neovim
     params:
       CMAKE_BUILD_TYPE=RelWithDebInfo
+  tags: [nvim-build, neovim]
 
 - name: Run make install
   make:
     chdir: /home/{{ ansible_user_id }}/git/neovim
     target: install
   become: true
+  tags: [nvim-build, neovim]
 
-- name: "Copy config folder"
+- name: Copy config folder
   copy:
     src: nvim
     dest: /home/{{ ansible_user_id }}/.config/
+  tags: [nvim-config, neovim]
 
-- name: "Copy config folder ROOT"
+- name: Copy config folder ROOT
   copy:
     src: nvim
     dest: /root/.config/
   become: true
+  tags: [nvim-config, neovim]
 
-- name: "Install Packer"
+- name: Install Packer
   shell: git clone --depth 1 https://github.com/wbthomason/packer.nvim /home/{{ ansible_user_id }}/.local/share/nvim/site/pack/packer/start/packer.nvim
   ignore_errors: true
+  tags: [nvim-plugins, neovim]
 
-- name: "Install Packer ROOT"
+- name: Install Packer ROOT
   shell: git clone --depth 1 https://github.com/wbthomason/packer.nvim /root/.local/share/nvim/site/pack/packer/start/packer.nvim
   ignore_errors: true
   become: true
+  tags: [nvim-plugins, neovim]
 
-- name: "Install pyright language-server"
+- name: Install pyright language-server
   npm:
     name: pyright
     global: true
   become: true
+  tags: [nvim-lsp, neovim]
