@@ -1,7 +1,9 @@
 ---
 - name: Install neovim
   package:
-    name: neovim
+    name:
+      - neovim
+      - tree-sitter-cli
     state: present
   become: true
   tags: [nvim-install, neovim]
