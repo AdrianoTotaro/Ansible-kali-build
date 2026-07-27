@@ -14,13 +14,16 @@ return require('packer').startup(function(use)
   }
 
   use "rebelot/kanagawa.nvim"
-  -- LSP + completion (Neovim 0.11+ uses vim.lsp.config/vim.lsp.enable)
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/cmp-buffer' }
   use { 'hrsh7th/cmp-path' }
   use { 'saadparwaiz1/cmp_luasnip' }
   use { 'L3MON4D3/LuaSnip' }
-    use 'navarasu/onedark.nvim'
-    use 'preservim/nerdtree'
- end)
+  use 'navarasu/onedark.nvim'
+  use 'preservim/nerdtree'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  }
+end)
