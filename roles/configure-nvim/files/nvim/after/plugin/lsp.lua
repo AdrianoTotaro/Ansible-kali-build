@@ -24,6 +24,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+local function get_python_path(root_dir)
+  local venv_dirs = { '.venv', 'venv', 'env' }
+  for _, dir in ipairs(venv_dirs) do
+    local path = root_dir .. '/' .. dir .. '/bin/python'
+    if vim.fn.executable(path) == 1 then
+      return path
+    end
+  end
+  return vim.fn.exepath('python3') or 'python3'
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   callback = function()
@@ -37,6 +48,11 @@ vim.api.nvim_create_autocmd('FileType', {
       cmd = { 'pyright-langserver', '--stdio' },
       root_dir = root_dir,
       capabilities = lsp_capabilities,
+      settings = {
+        python = {
+          pythonPath = get_python_path(root_dir),
+        },
+      },
     })
   end,
 })
