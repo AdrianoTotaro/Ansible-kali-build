@@ -15,8 +15,6 @@
       tags: [terminator]
     - role: "roles/configure-nvim"
       tags: [neovim, nvim]
-    - role: "gantsign.visual-studio-code"
-      tags: [vscode]
       users:
       - username: "{{ ansible_user_id }}" 
         visual_studio_code_extensions:
